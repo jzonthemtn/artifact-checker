@@ -1,0 +1,10 @@
+[
+  {
+    "group_id": "com.fasterxml.jackson.core",
+    "artifact_id": "jackson-databind"
+  },
+  {
+    "group_id": "org.springframework",
+    "artifact_id": "spring-core"
+  }
+]
