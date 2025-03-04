@@ -22,7 +22,7 @@ def get_latest_version(group_id, artifact_id):
         print(f"Error parsing metadata: {e}")
         return None
 
-def get_current_version_from_db(group_id, artifact_id, db_path="artifact_versions.db"):
+def get_current_version_from_db(group_id, artifact_id, db_path="./db/artifact_versions.db"):
     """Retrieves the current version from the database."""
     try:
         conn = sqlite3.connect(db_path)
@@ -51,7 +51,7 @@ def get_current_version_from_db(group_id, artifact_id, db_path="artifact_version
         if conn:
             conn.close()
 
-def update_current_version_in_db(group_id, artifact_id, version, db_path="artifact_versions.db"):
+def update_current_version_in_db(group_id, artifact_id, version, db_path="./db/artifact_versions.db"):
     """Updates the current version in the database."""
     try:
         conn = sqlite3.connect(db_path)
@@ -120,7 +120,7 @@ def load_artifacts_from_json(filepath="artifacts.json"):
         print(f"Error: Invalid JSON in {filepath}.")
         return []
 
-def print_current_versions(db_path="artifact_versions.db"):
+def print_current_versions(db_path="./db/artifact_versions.db"):
     """Prints all current versions from the database."""
     try:
         conn = sqlite3.connect(db_path)
@@ -145,11 +145,6 @@ def main():
     print_current_versions()
 
     artifacts = load_artifacts_from_json()
-    email_settings = load_email_settings()
-
-    if not email_settings:
-        print("Error: Email settings not found. Exiting.")
-        return
 
     print("New Versions:")
 
