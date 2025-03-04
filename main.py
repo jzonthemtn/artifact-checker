@@ -85,7 +85,7 @@ def check_for_new_version(group_id, artifact_id):
 
 def send_email(sender_email, receiver_email, subject, body):
     """Sends an email notification using AWS SES."""
-    client = boto3.client('ses')  # No need to provide credentials explicitly when using an IAM role
+    client = boto3.client('ses', region_name='us-east-1')
 
     try:
         response = client.send_email(
@@ -163,14 +163,13 @@ def main():
             print(f"- New version available for {group_id}:{artifact_id}: {new_version}")
             update_current_version_in_db(group_id, artifact_id, new_version)
 
-            sender_email = "your_email@gmail.com"
-            sender_password = "your_password"
-            receiver_email = "recipient_email@example.com"
+            sender_email = "from@email.com"
+            receiver_email = "to@email.com"
 
             subject = f"New Maven Artifact Version: {group_id}:{artifact_id}"
             body = f"A new version ({new_version}) of {group_id}:{artifact_id} is available.\nPrevious version: {get_current_version_from_db(group_id, artifact_id)}"
 
-            #send_email(sender_email, receiver_email, subject, body)
+            send_email(sender_email, receiver_email, subject, body)
 
             print(subject)
             print(body)
