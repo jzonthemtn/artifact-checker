@@ -1,3 +1,3 @@
 #!/bin/bash -e
 
-docker build -t artifact_listener:latest .
+docker build -t artifact_checker:latest .
